@@ -13,6 +13,21 @@ app.get('/', function (req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
 
+var votes = {};
+
+function countVotes(votes) {
+var voteCount = {
+    A: 0,
+    B: 0,
+    C: 0,
+    D: 0
+};
+  for (var vote in votes) {
+    voteCount[votes[vote]]++
+  }
+  return voteCount;
+}
+
 io.on('connection', function (socket) {
   console.log('A user has connected.', io.engine.clientsCount);
 
@@ -20,29 +35,11 @@ io.on('connection', function (socket) {
 
   socket.emit('statusMessage', 'You have connected.');
 
-  // socket.emit('votesMessage', message);
-  var votes = {};
-
-  function countVotes(votes) {
-  var voteCount = {
-      A: votes["A"],
-      B: votes["B"],
-      C: votes["C"],
-      D: votes["D"]
-  };
-  // debugger;
-    for (var vote in votes) {
-      // debugger;
-      voteCount[votes[vote]]++;
-    }
-    return voteCount;
-  }
-
   socket.on('message', function (channel, message) {
     if (channel === 'voteCast') {
       votes[socket.id] = message;
       socket.emit('voteCount', countVotes(votes));
-      socket.emit('votesMessage', 'You voted');
+      socket.emit('voteMessage', "You voted for " + message);
     }
   });
 
@@ -53,5 +50,6 @@ io.on('connection', function (socket) {
     io.sockets.emit('userConnection', io.engine.clientsCount);
   });
 });
+
 
 module.exports = server;
