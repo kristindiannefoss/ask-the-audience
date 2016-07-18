@@ -51,13 +51,13 @@ socket.on('voteCount', function (votes) {
   votesC.innerText = votes["C"];
   votesD.innerText = votes["D"];
 	// votesMessage.innerText = "You voted: " ;
-	totals.innerText = [ voteCount["A"], voteCount["B"], voteCount["C"], voteCount["D"]];
+	// totals.innerText = [ voteCount["A"], voteCount["B"], voteCount["C"], voteCount["D"]];
 });
 //////////////////////////////////
 
 var votesMessage = document.getElementById('votes-message');
 
-socket.on('votesMessage', function (vote) {
-  console.log(vote);
-	votesMessage.innerText = "You voted: " ;
+socket.on('votesMessage', function (votes) {
+  console.log(votes);
+	votesMessage.innerText = votes + "Cheese " ;
 });

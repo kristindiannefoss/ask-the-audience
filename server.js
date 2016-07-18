@@ -42,7 +42,8 @@ io.on('connection', function (socket) {
     if (channel === 'voteCast') {
       votes[socket.id] = message;
       socket.emit('voteCount', countVotes(votes));
-      socket.emit('votesMessage', 'You voted');
+      // debugger;
+      // socket.emit('votesMessage', message + 'You voted');
     }
   });
 
