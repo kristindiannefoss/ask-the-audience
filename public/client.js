@@ -21,6 +21,25 @@ for (var i = 0; i < buttons.length; i++) {
   });
 }
 /////////////////////////////////
+// var votesMessage = document.getElementById('votes-message');
+var votesA = document.getElementById('a-votes');
+var votesB = document.getElementById('b-votes');
+var votesC = document.getElementById('c-votes');
+var votesD = document.getElementById('d-votes');
+
+
 socket.on('voteCount', function (votes) {
+  // debugger;
   console.log(votes);
+  votesA.innerText = votes["A"];
+  votesB.innerText = votes["B"];
+  votesC.innerText = votes["C"];
+  votesD.innerText = votes["D"];
+});
+//////////////////////////////////
+
+var votesMessage = document.getElementById('votes-message');
+
+socket.on('votesMessage', function (vote) {
+	votesMessage.innerText = "You voted: " + vote;
 });
