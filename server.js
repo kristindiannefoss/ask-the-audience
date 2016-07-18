@@ -25,10 +25,10 @@ io.on('connection', function (socket) {
 
   function countVotes(votes) {
   var voteCount = {
-      A: 0,
-      B: 0,
-      C: 0,
-      D: 0
+      A: votes["A"],
+      B: votes["B"],
+      C: votes["C"],
+      D: votes["D"]
   };
   // debugger;
     for (var vote in votes) {
@@ -42,7 +42,7 @@ io.on('connection', function (socket) {
     if (channel === 'voteCast') {
       votes[socket.id] = message;
       socket.emit('voteCount', countVotes(votes));
-      socket.emit('votesMessage', message);
+      socket.emit('votesMessage', 'You voted');
     }
   });
 
