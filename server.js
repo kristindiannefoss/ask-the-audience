@@ -20,6 +20,7 @@ io.on('connection', function (socket) {
 
   socket.emit('statusMessage', 'You have connected.');
 
+  // socket.emit('votesMessage', message);
   var votes = {};
 
   function countVotes(votes) {
@@ -29,9 +30,10 @@ io.on('connection', function (socket) {
       C: 0,
       D: 0
   };
-  debugger;
+  // debugger;
     for (var vote in votes) {
-      voteCount[votes[vote]]++
+      // debugger;
+      voteCount[votes[vote]]++;
     }
     return voteCount;
   }
@@ -40,7 +42,7 @@ io.on('connection', function (socket) {
     if (channel === 'voteCast') {
       votes[socket.id] = message;
       socket.emit('voteCount', countVotes(votes));
-      socket.emit('youVoted', message);
+      socket.emit('votesMessage', message);
     }
   });
 
@@ -50,8 +52,6 @@ io.on('connection', function (socket) {
     socket.emit('voteCount', countVotes(votes));
     io.sockets.emit('userConnection', io.engine.clientsCount);
   });
-
 });
-
 
 module.exports = server;
